@@ -4,7 +4,8 @@
 EAPI=7
 inherit desktop
 
-EGIT_REPO_URI="https://github.com/Bios-Marcel/cordless.git"
+EGO_PN="github.com/Bios-Marcel/${PN}"
+EGIT_REPO_URI="https://${EGO_PN}.git"
 
 DESCRIPTION="The Discord terminal client you never knew you wanted."
 HOMEPAGE="https://github.com/Bios-Marcel/cordless"
@@ -24,25 +25,32 @@ RDEPEND="${DEPEND}
 
 src_compile() {
 	
-	go build || die
+	mkdir build || die
+	go build -o build ./... || die
 
 }
 
 src_install() {
-
-	if [ -f cordless ]; then
-		dodir /usr/bin
-		dobin cordless
-	fi
 	
-	domenu "${FILESDIR}/${PN}.desktop"
+	dodir /usr/bin
+	
+	if [ -f "build/${PN}" ]; then
+		dobin "build/${PN}"
+		domenu "${FILESDIR}/${PN}.desktop"
+	fi
 
 }
 
 pkg_postinst() {
 
 	elog "You can launch cordless executing cordless from terminal."
-	elog ""
 	elog "You can also launch cordless from the applications menu."
-
+	elog ""
+	elog "In order to login with cordless, check the upstream guide:"
+	elog "https://github.com/Bios-Marcel/cordless#login"
+	elog ""
+	elog "For manual press ALT+Dot and type 'manual'"
+	elog ""
+	elog "A list of cordless keybindings:"
+	elog "https://github.com/Bios-Marcel/cordless#quick-overview---navigation-switching-between-boxes--containers"
 }
