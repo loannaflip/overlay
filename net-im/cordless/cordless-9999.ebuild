@@ -26,7 +26,8 @@ RDEPEND="${DEPEND}
 src_unpack() {
 		
 	git-r3_src_unpack
-	# S="${WORKDIR}/${PN}"
+	S="${WORKDIR}/${PN}"
+
 }
 
 src_compile() {
@@ -39,11 +40,8 @@ src_compile() {
 src_install() {
 	
 	dodir /usr/bin
-	
-	if [ -f "build/${PN}" ]; then
-		dobin "build/${PN}"
-		domenu "${FILESDIR}/${PN}.desktop"
-	fi
+	dobin "build/${PN}"
+	domenu "${FILESDIR}/${PN}.desktop"
 
 }
 
