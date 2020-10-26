@@ -26,7 +26,7 @@ $$ |  $$ |$$ |  $$ |$$ |$$ | $$ | $$ |$$ |$$ |  $$ |$$ |$$ |  $$ |
 There are two main methods for making use of this repository, discussed in the sections below.
 
 ### Local Repository
-For the [local repository](https://wiki.gentoo.org/wiki/Handbook:Parts/Portage/CustomTree#Defining_a_custom_repository) method, create a `/etc/portage/repos.conf/uniminin.conf` file containing the following bit of text.
+For the [local repository](https://wiki.gentoo.org/wiki/Handbook:Parts/Portage/CustomTree#Defining_a_custom_repository) method, create a `/etc/portage/repos.conf/uniminin.conf` file and add the following:-
 ```
 [uniminin-overlay]
 priority = 50
