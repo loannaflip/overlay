@@ -2,6 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+
+# TEMP :?:
+die "Unimplemented"
+
 inherit desktop git-r3
 
 EGO_PN="github.com/Bios-Marcel/${PN}"
@@ -23,24 +27,15 @@ RDEPEND="${DEPEND}
 	X? ( x11-misc/xclip )"
 
 
-src_unpack() {
-		
-	git-r3_src_unpack
-	S="${WORKDIR}/${PN}"
-
-}
-
+# TODO
+:'
 src_compile() {
-	
-	mkdir build || die
-	go build -o build ./... || die
-
 }
+'
 
 src_install() {
 	
-	dodir /usr/bin
-	dobin "build/${PN}"
+	dobin "${PN}"
 	domenu "${FILESDIR}/${PN}.desktop"
 
 }
