@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Name=VSCodium
+GenericName=Text Editor
+Type=Application
+Comment=Free/Libre VSCode
+Exec=/opt/vscodium/bin/codium --unity-launch %F
+TryExec=codium
+Icon=vscodium
+Categories=Editor;Development;IDE;
+Keywords=editor;development;ide;vscode;codium;vscodium;
+Actions=new-empty-window;
+MimeType=text/plain;inode/directory;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/opt/vscodium/bin/codium --new-window %F
+Icon=vscodium
