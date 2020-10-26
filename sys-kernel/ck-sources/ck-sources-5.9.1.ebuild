@@ -33,14 +33,3 @@ UNIPATCH_LIST="
 	${FILESDIR}/${CK_EXTRAVERSION}-revert-version.patch"
 
 UNIPATCH_STRICTORDER="yes"
-
-src_prepare() {
-
-	if [[ $(gcc-major-version) -gt 9 ]]; then
-		eapply ${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v10.patch
-	else
-		eapply ${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v9.patch
-	fi
-	eapply_user
-
-}
