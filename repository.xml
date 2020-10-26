@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo priority="50" quality="experimental" status="unofficial">
+    <name><![CDATA[uniminin-overlay]]></name>
+    <description lang="en"><![CDATA[uniminin's portage overlay for Gentoo Linux providing ebuilds for various packages]]></description>
+    <homepage>https://github.com/Uniminin/uniminin-overlay</homepage>
+    <owner type="person">
+      <email>uniminin@zoho.com</email>
+      <name><![CDATA[uniminin]]></name>
+    </owner>
+    <source type="git">https://github.com/Uniminin/uniminin-overlay.git</source>
+    <feed>https://github.com/Uniminin/uniminin-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
