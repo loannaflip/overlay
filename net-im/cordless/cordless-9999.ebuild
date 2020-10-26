@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit desktop
+inherit desktop git-r3
 
 EGO_PN="github.com/Bios-Marcel/${PN}"
 EGIT_REPO_URI="https://${EGO_PN}.git"
@@ -22,6 +22,12 @@ RDEPEND="${DEPEND}
 	wayland? ( gui-apps/wl-clipboard )
 	X? ( x11-misc/xclip )"
 
+
+src_unpack() {
+		
+	git-r3_src_unpack
+	# S="${WORKDIR}/${PN}"
+}
 
 src_compile() {
 	
