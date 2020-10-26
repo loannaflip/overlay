@@ -260,9 +260,7 @@ src_configure() {
 			--disable-opengl
 		)
 	fi
-	if use amd64 && ! has_multilib_profile ; then
-		myconf+=( --disable-vmmraw )
-	fi
+	
 	# not an autoconf script
 	doecho ./configure ${myconf[@]}
 
