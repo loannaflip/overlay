@@ -45,7 +45,7 @@ RESTRICT="test"
 
 RDEPEND="
 	!app-editors/emacs
-	!app-editors/doom-emacs
+	!app-editors/spacemacs
 	dev-vcs/git
 	app-emacs/emacs-common-gentoo[games?,gui(-)?]
 	sys-libs/ncurses:0=
@@ -406,9 +406,9 @@ src_install() {
 		it into /Applications by yourself."
 	readme.gentoo_create_doc
 	
-	# Spacemacs
-	einfo "Installing Spacemacs for user ${USER}"
-	git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+	# Doom-Emacs
+	einfo "Installing Doom-Emacs for user ${USER}"
+	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d ; ~/.emacs.d/bin/doom install
 
 }
 
