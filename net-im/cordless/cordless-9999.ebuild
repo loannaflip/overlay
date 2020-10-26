@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-EGO_PN=github.com/Bios-Marcel/cordless
+inherit desktop golang-build golang-vcs-snapshot
 
-inherit desktop golang-vcs golang-build
+EGIT_REPO_URI="https://github.com/Bios-Marcel/cordless.git"
 
 DESCRIPTION="The Discord terminal client you never knew you wanted."
 HOMEPAGE="https://github.com/Bios-Marcel/cordless"
@@ -21,10 +21,18 @@ RDEPEND="${DEPEND}
 	wayland? ( gui-apps/wl-clipboard )
 	X? ( x11-misc/xclip )"
 
+
+src_compile() {
+	
+	go build || die
+
+}
+
 src_install() {
 
-	if [ -f main.go ] || [ -f go.mod ]; then
-		golang-build_src_install
+	if [ -f cordless ]; then
+		dodir /usr/bin
+		dobin cordless
 	fi
 	
 	domenu "${FILESDIR}/${PN}.desktop"
