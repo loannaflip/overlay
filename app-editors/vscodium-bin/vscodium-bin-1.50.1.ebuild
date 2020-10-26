@@ -20,7 +20,7 @@ RESTRICT="mirror strip bindist"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~arm ~arm64"
-IUSE="libsecret cups libnotify nss cairo"
+IUSE="+libsecret -cups +libnotify +nss +cairo"
 
 DEPEND="
 	!app-editors/vscodium
