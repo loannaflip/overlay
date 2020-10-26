@@ -109,12 +109,14 @@ src_install() {
 	find "${ED}" \( -name "*.a" -o -name "*.la" \) -delete || die
 
 	if use X; then
+		
 		make_desktop_entry "gracket" "GRacket" \
-						   "/usr/share/racket/drracket-exe-icon.png" \
-						   "Development;Education;"
+		"/usr/share/racket/drracket-exe-icon.png" \
+		"Development;Education;"
+		
 		make_desktop_entry "plt-games" "PLT Games" \
-						   "/usr/share/racket/drracket-exe-icon.png" \
-						   "Education;Game;"
+		"/usr/share/racket/drracket-exe-icon.png" \
+		"Education;Game;"
 	fi
 
 }
