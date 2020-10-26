@@ -3,12 +3,14 @@
 
 EAPI=7
 
-inherit eutils pax-utils
+MY_PN="${PN/-bin/}"
 
-DESCRIPTION="Open Source build of Visual Studio Code"
+inherit eutils desktop xdg-utils
+
+DESCRIPTION="Free/Libre Open Source Software Binaries of VSCode"
 HOMEPAGE="https://vscodium.com"
-SRC_URI="amd64? ( https://github.com/VSCodium/vscodium/releases/download/${PV}/VSCodium-linux-x64-${PV}.tar.gz -> ${P}-x64.tar.gz )"
-RESTRICT="mirror strip"
+SRC_URI="https://github.com/VSCodium/vscodium/releases/download/${PV}/VSCodium-linux-x64-${PV}.tar.gz"
+RESTRICT="mirror strip bindist"
 
 LICENSE="MIT"
 SLOT="0"
@@ -23,30 +25,40 @@ DEPEND="
 
 RDEPEND="
 	${DEPEND}
-	>=net-print/cups-2.0.0
-	x11-libs/libnotify
-	x11-libs/libXScrnSaver
 	dev-libs/nss
-	libsecret? ( app-crypt/libsecret[crypt] )"
+	media-libs/alsa-lib
+	net-print/cups"
 
-QA_PRESTRIPPED="opt/${PN}/code"
+QA_PREBUILT="opt/${MY_PN}/*"
 
 S="${WORKDIR}"
 
-src_install(){
-	pax-mark m code
-	insinto "/opt/${PN}"
-	doins -r *
-	dosym "../../opt/${PN}/bin/codium" "/usr/bin/${PN}"
-	dosym "../../opt/${PN}/bin/codium" "/usr/bin/codium"
-	make_desktop_entry "${PN}" "Visual Studio Code" "${PN}" "Development;IDE"
-	doicon "${FILESDIR}/${PN}.png"
-	fperms +x "/opt/${PN}/codium"
-	fperms +x "/opt/${PN}/bin/codium"
-	fperms +x "/opt/${PN}/resources/app/node_modules.asar.unpacked/vscode-ripgrep/bin/rg"
-	fperms +x "/opt/${PN}/resources/app/extensions/git/dist/askpass.sh"
-	insinto "/usr/share/licenses/${PN}"
-	for x in resources/app/LICEN*; do
-		newins "${x}" "$(basename ${x})"
-	done
+src_install() {
+
+    # Install in /opt
+    dodir /opt
+    cp -pPR "${S}" "${D}/opt/${MY_PN}"
+    fperms 0755 /opt/${MY_PN}
+
+    dosym "../../opt/${MY_PN}/bin/codium" "/usr/bin/vs${MY_PN}"
+    dosym "../../opt/${MY_PN}/bin/codium" "/usr/bin/vscodium"
+    make_desktop_entry "${MY_PN}" "VSCodium" "${MY_PN}" "Editor;Development;IDE"
+    newicon "resources/app/resources/linux/vscodium.png" "${PN}.png"
+
+}
+
+pkg_postinst() {
+
+	xdg_desktop_database_update
+    xdg_icon_cache_update
+    xdg_mimeinfo_database_update
+
+}
+
+pkg_postrm() {
+
+	xdg_desktop_database_update
+    xdg_icon_cache_update
+    xdg_mimeinfo_database_update
+
 }
