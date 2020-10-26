@@ -43,7 +43,7 @@ src_install() {
     dosym "../../opt/${MY_PN}/bin/codium" "/usr/bin/vs${MY_PN}"
     dosym "../../opt/${MY_PN}/bin/codium" "/usr/bin/vscodium"
     make_desktop_entry "${MY_PN}" "VSCodium" "${MY_PN}" "Editor;Development;IDE"
-    newicon "resources/app/resources/linux/vscodium.png" "${PN}.png"
+	newicon "resources/app/resources/linux/code.png" "${MY_PN}.png"
 
 }
 
