@@ -3,26 +3,33 @@
 
 EAPI=7
 
-inherit pax-utils
+inherit desktop pax-utils xdg
 
 DESCRIPTION="General purpose, multi-paradigm Lisp-Scheme programming language"
 HOMEPAGE="https://racket-lang.org/"
-SRC_URI="minimal? ( https://download.racket-lang.org/installers/${PV}/${PN}-minimal-${PV}-src-builtpkgs.tgz ) !minimal? ( https://download.racket-lang.org/installers/${PV}/${P}-src-builtpkgs.tgz )"
+SRC_URI="minimal? ( https://download.racket-lang.org/installers/${PV}/${PN}-minimal-${PV}-src-builtpkgs.tgz ) 
+         !minimal? ( https://download.racket-lang.org/installers/${PV}/${P}-src-builtpkgs.tgz )"
+
 LICENSE="GPL-3+ LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86"
-IUSE="doc +futures +jit -minimal +places +readline +threads +X"
-REQUIRED_USE="futures? ( jit )"
+IUSE="+doc +futures +jit +graphics -minimal +places +readline +threads +X"
+REQUIRED_USE="
+	futures? ( jit ) 
+	X? ( graphics )"
 
-RDEPEND="dev-db/sqlite:3
-	media-libs/libpng:0
-	x11-libs/cairo[X?]
-	x11-libs/pango[X?]
+RDEPEND="
+	!dev-tex/slatex
+	dev-db/sqlite:3
+	graphics? (
+		media-libs/libpng:0
+		virtual/jpeg:0
+		x11-libs/cairo[X?]
+		x11-libs/pango[X?]
+	)
 	virtual/libffi
-	virtual/jpeg:0
 	readline? ( dev-libs/libedit )
-	X? ( x11-libs/gtk+[X?] )
-	!dev-tex/slatex"
+	X? ( x11-libs/gtk+[X?] )"
 
 DEPEND="${RDEPEND}"
 
@@ -41,6 +48,7 @@ src_configure() {
 	# such that we don't preclude cross-compile. Thus don't use
 	# --enable-lt=/usr/bin/libtool
 	econf \
+		--docdir="${EPREFIX}"/usr/share/doc/${PF}
 		--enable-shared \
 		--enable-float \
 		--enable-libffi \
@@ -97,6 +105,28 @@ src_install() {
 	if use doc; then
 		docompress -x /usr/share/doc/${PF}
 	fi
+
 	find "${ED}" \( -name "*.a" -o -name "*.la" \) -delete || die
+
+	if use X; then
+		make_desktop_entry "gracket" "GRacket" \
+						   "/usr/share/racket/drracket-exe-icon.png" \
+						   "Development;Education;"
+		make_desktop_entry "plt-games" "PLT Games" \
+						   "/usr/share/racket/drracket-exe-icon.png" \
+						   "Education;Game;"
+	fi
+
+}
+
+pkg_postinst() {
+
+	use X && xdg_desktop_database_update
+
+}
+
+pkg_postrm() {
+
+	use X && xdg_desktop_database_update
 
 }
