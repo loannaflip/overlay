@@ -52,6 +52,7 @@ RDEPEND="
 
 DEPEND="
 	${RDEPEND}
+	!app-editors/vim
 	app-shells/bash
 	dev-vcs/git
 	net-misc/curl
