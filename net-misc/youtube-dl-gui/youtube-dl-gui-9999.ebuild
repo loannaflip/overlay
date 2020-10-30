@@ -22,7 +22,7 @@ BDEPEND="sys-devel/gettext"
 DEPEND="${PYTHON_DEPS}"
 RDEPEND="
 	${DEPEND}
-	>=dev-python/wxpython:4.0[${PYTHON_USEDEP}]
+	>=dev-python/wxpython-4.0.0:4.0[${PYTHON_USEDEP}]
 	dev-python/twodict[${PYTHON_USEDEP}]
 	net-misc/youtube-dl
 	ffmpeg? ( media-video/ffmpeg )"
