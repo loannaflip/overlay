@@ -28,3 +28,5 @@ RDEPEND="
 	tk? ( dev-tcltk/togl )"
 
 DEPEND="${RDEPEND}"
+
+S="${WORKDIR}/${MY_P}"
