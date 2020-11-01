@@ -64,7 +64,7 @@ pkg_postinst() {
 
 	elog "You may install some additional utils, so check them in:"
 	elog "https://code.visualstudio.com/Docs/setup#_additional-tools"
-	elog ""
+	echo
 	elog "Upstream renamed the binary from vscodium to codium."
 	elog "You can launch vscodium from terminal executing codium or vscodium."
 

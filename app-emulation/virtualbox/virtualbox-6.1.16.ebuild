@@ -10,7 +10,7 @@ MY_PN="VirtualBox"
 MY_PV="${PV/beta/BETA}"
 MY_PV="${MY_PV/rc/RC}"
 MY_P=${MY_PN}-${MY_PV}
-[[ "${PV}" == *a ]] && DIR_PV="$(ver_cut 1-3)"
+[ "${PV}" == *a ] && DIR_PV="$(ver_cut 1-3)"
 
 DESCRIPTION="Family of powerful x86 virtualization products for enterprise and home use"
 HOMEPAGE="https://www.virtualbox.org/"
@@ -18,7 +18,7 @@ SRC_URI="https://download.virtualbox.org/virtualbox/${DIR_PV:-${MY_PV}}/${MY_P}.
 
 LICENSE="GPL-2 dtrace? ( CDDL )"
 SLOT="0"
-[[ "${PV}" == *_beta* ]] || [[ "${PV}" == *_rc* ]] || \
+[ "${PV}" == *_beta* ] || [ "${PV}" == *_rc* ] || \
 KEYWORDS="~amd64"
 IUSE="alsa debug doc dtrace headless java libressl lvm +opus pam pax_kernel pulseaudio +opengl python +qt5 +sdk +udev vboxwebsrv vnc"
 
@@ -94,8 +94,7 @@ BDEPEND="
 
 RDEPEND="
 	${CDEPEND}
-	java? ( >=virtual/jre-1.6 )
-"
+	java? ( >=virtual/jre-1.6 )"
 
 QA_TEXTRELS_x86="
 	usr/lib/virtualbox-ose/VBoxGuestPropSvc.so
@@ -151,6 +150,7 @@ pkg_pretend() {
 		einfo "No USE=\"opengl\" selected, this build will lack"
 		einfo "the OpenGL feature."
 	fi
+
 	if ! use python ; then
 		einfo "You have disabled the \"python\" USE flag. This will only"
 		einfo "disable the python bindings being installed."
@@ -195,14 +195,12 @@ src_prepare() {
 	if ! use pam ; then
 		elog "Disabling PAM removes the possibility to use the VRDP features."
 		sed -i 's@^.*VBOX_WITH_PAM@#VBOX_WITH_PAM@' Config.kmk || die
-		sed -i 's@\(.*/auth/Makefile.kmk.*\)@#\1@' \
-			src/VBox/HostServices/Makefile.kmk || die
+		sed -i 's@\(.*/auth/Makefile.kmk.*\)@#\1@' src/VBox/HostServices/Makefile.kmk || die
 	fi
 
 	# add correct java path
 	if use java ; then
-		sed "s@/usr/lib/jvm/java-6-sun@$(java-config -O)@" \
-			-i "${S}"/Config.kmk || die
+		sed "s@/usr/lib/jvm/java-6-sun@$(java-config -O)@" -i "${S}"/Config.kmk || die
 		java-pkg-opt-2_src_prepare
 	fi
 
@@ -249,6 +247,7 @@ src_configure() {
 		$(usex vboxwebsrv --enable-webservice '')
 		$(usex vnc --enable-vnc '')
 	)
+
 	if ! use headless ; then
 		myconf+=(
 			$(usex opengl '' --disable-opengl)
@@ -291,6 +290,7 @@ src_install() {
 	local vbox_inst_path="/usr/$(get_libdir)/${PN}" each size ico icofile
 
 	vbox_inst() {
+	
 		local binary="${1}"
 		local perms="${2:-0750}"
 		local path="${3:-${vbox_inst_path}}"
@@ -302,6 +302,7 @@ src_install() {
 		doins ${binary}
 		fowners root:vboxusers ${path}/${binary}
 		fperms ${perms} ${path}/${binary}
+	
 	}
 
 	# Create configuration files
@@ -495,13 +496,13 @@ pkg_postinst() {
 		elog "To launch VirtualBox just type: \"virtualbox\"."
 	fi
 	elog "You must be in the vboxusers group to use VirtualBox."
-	elog ""
+	echo
 	elog "The latest user manual is available for download at:"
 	elog "http://download.virtualbox.org/virtualbox/${DIR_PV:-${PV}}/UserManual.pdf"
-	elog ""
+	echo
 	elog "For advanced networking setups you should emerge:"
 	elog "net-misc/bridge-utils and sys-apps/usermode-utilities"
-	elog ""
+	echo
 	elog "Starting with version 4.0.0, ${PN} has USB-1 support."
 	elog "For USB-2 support, PXE-boot ability and VRDP support please emerge"
 	elog "  app-emulation/virtualbox-extpack-oracle"
@@ -517,7 +518,7 @@ pkg_postinst() {
 		elog "WARNING!"
 		elog "Without USE=udev, USB devices will likely not work in ${PN}."
 	elif [[ -e "${ROOT}/etc/udev/rules.d/10-virtualbox.rules" ]] ; then
-		elog ""
+		echo
 		elog "Please remove \"${ROOT}/etc/udev/rules.d/10-virtualbox.rules\""
 		elog "or else USB in ${PN} won't work."
 	fi
