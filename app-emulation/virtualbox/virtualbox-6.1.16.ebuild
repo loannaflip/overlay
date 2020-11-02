@@ -9,8 +9,8 @@ inherit desktop flag-o-matic java-pkg-opt-2 linux-info pax-utils python-single-r
 MY_PN="VirtualBox"
 MY_PV="${PV/beta/BETA}"
 MY_PV="${MY_PV/rc/RC}"
-MY_P=${MY_PN}-${MY_PV}
-[ "${PV}" == *a ] && DIR_PV="$(ver_cut 1-3)"
+MY_P="${MY_PN}-${MY_PV}"
+DIR_PV="$(ver_cut 1-3)"
 
 DESCRIPTION="Family of powerful x86 virtualization products for enterprise and home use"
 HOMEPAGE="https://www.virtualbox.org/"
@@ -18,7 +18,6 @@ SRC_URI="https://download.virtualbox.org/virtualbox/${DIR_PV:-${MY_PV}}/${MY_P}.
 
 LICENSE="GPL-2 dtrace? ( CDDL )"
 SLOT="0"
-[ "${PV}" == *_beta* ] || [ "${PV}" == *_rc* ] || \
 KEYWORDS="~amd64"
 IUSE="alsa debug doc dtrace headless java libressl lvm +opus pam pax_kernel pulseaudio +opengl python +qt5 +sdk +udev vboxwebsrv vnc"
 
