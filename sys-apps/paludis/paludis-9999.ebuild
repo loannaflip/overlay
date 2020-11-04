@@ -7,62 +7,62 @@ EGIT_REPO_URI="https://github.com/MageSlayer/paludis-gentoo-patches.git"
 PYTHON_COMPAT=( python2_7 )
 RUBY_VER=2.4
 
-inherit bash-completion-r1 cmake-utils git-r3 python-r1 user
+inherit bash-completion-r1 cmake-utils git-r3 python-single-r1 user
 
-DESCRIPTION="Paludis, the Other Package Mangler"
-HOMEPAGE="http://paludis.exherbo.org"
+DESCRIPTION="paludis, the other package mangler"
+HOMEPAGE="http://paludis.exherbo.org/"
 SRC_URI=""
 
-IUSE="+doc pbins pink python ruby ruby_targets_ruby${RUBY_VER/./} search-index +xml -eapi7"
+IUSE="doc pbins pink python ruby ruby_targets_ruby${RUBY_VER/./} search-index test +xml +eapi7"
 LICENSE="GPL-2 vim"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="amd64"
 
 COMMON_DEPEND="
-	>=app-admin/eselect-1.4.0
-	>=app-shells/bash-5.0:0
+	>=app-admin/eselect-1.2.15
+	>=app-shells/bash-3.2:0
 	dev-libs/libpcre:=[cxx]
 	sys-apps/file:=
-	pbins? ( >=app-arch/libarchive-3.4.0:= )
+	pbins? ( >=app-arch/libarchive-3.1.2:= )
 	python? (
 		${PYTHON_DEPS}
-		dev-libs/boost[python,${PYTHON_USEDEP}]
-	)
+		>=dev-libs/boost-1.41.0:=[python] )
 	ruby? ( dev-lang/ruby:${RUBY_VER} )
 	search-index? ( >=dev-db/sqlite-3:= )
-	xml? ( >=dev-libs/libxml2-2.8:= )"
+	xml? ( >=dev-libs/libxml2-2.6:= )"
 
-DEPEND="
-	${COMMON_DEPEND}
-	>=app-text/asciidoc-9.0.0
+DEPEND="${COMMON_DEPEND}
+	>=app-text/asciidoc-8.6.5
 	app-text/htmltidy
 	app-text/xmlto
-	>=sys-devel/gcc-9.3.0
+	>=sys-devel/gcc-8.0
 	doc? (
 		app-doc/doxygen
-		python? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+		python? ( dev-python/sphinx )
 		ruby? ( dev-ruby/syntax[ruby_targets_ruby${RUBY_VER/./}] )
 	)
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	test? ( >=dev-cpp/gtest-1.6.0-r1 )"
 
 RDEPEND="
 	${COMMON_DEPEND}
-	sys-apps/sandbox"
+	sys-apps/sydbox"
 
 PDEPEND="app-eselect/eselect-package-manager"
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
 	ruby? ( ruby_targets_ruby${RUBY_VER/./} )"
+RESTRICT="!test? ( test )"
 
 pkg_pretend() {
 
-	if [ "${MERGE_TYPE}" != buildonly ]; then
+	if [ ${MERGE_TYPE} != buildonly ]; then
 		if id paludisbuild >/dev/null 2>/dev/null ; then
 			if ! groups paludisbuild | grep --quiet '\<tty\>' ; then
-				eerror "The 'paludisbuild' user is now expected to be a member of the 'tty' group."
-				eerror "You should add the user to this group before upgrading paludis."
-				die "Add paludisbuild to tty group!"
+				eerror "The 'paludisbuild' user is now expected to be a member of the 'tty' group." 
+				eerror "You should add the user to this group before upgrading Paludis."
+				die "Please add paludisbuild to tty group!"
 			fi
 		fi
 	fi
@@ -81,19 +81,18 @@ pkg_setup() {
 src_unpack() {
 
 		if use eapi7; then
-			# want experimental EAPI7 support?
-			EGIT_BRANCH="eapi7"
+		# want experimental EAPI7 support?
+		EGIT_BRANCH="eapi7"
         else
-			EGIT_BRANCH="master"
+		EGIT_BRANCH="master"
         fi
-        
-		git-r3_fetch
+        git-r3_fetch
         git-r3_checkout
 
 }
 
 src_prepare() {
-
+	
 	# Fix the script shebang on Ruby scripts.
 	# https://bugs.gentoo.org/show_bug.cgi?id=439372#c2
 	sed -i -e "1s/ruby/&${RUBY_VER/./}/" ruby/demos/*.rb || die
@@ -106,7 +105,7 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DENABLE_DOXYGEN=$(usex doc)
-		-DENABLE_GTEST=OFF
+		-DENABLE_GTEST=$(usex test)
 		-DENABLE_PBINS=$(usex pbins)
 		-DENABLE_PYTHON=$(usex python)
 		-DENABLE_PYTHON_DOCS=$(usex doc) # USE=python implicit
@@ -142,15 +141,32 @@ src_install() {
 
 }
 
+src_test() {
+
+	# Work around Portage bugs
+	local -x PALUDIS_DO_NOTHING_SANDBOXY="portage sucks"
+	local -x BASH_ENV=/dev/null
+
+	if [ ${EUID} == 0 ] ; then
+		# hate
+		local -x PALUDIS_REDUCED_UID=0
+		local -x PALUDIS_REDUCED_GID=0
+	fi
+
+	cmake-utils_src_test
+
+}
+
 pkg_postinst() {
 
 	local pm
-	if [ -f "${ROOT}/etc/env.d/50package-manager" ] ; then
-		pm=$( source "${ROOT}"/etc/env.d/50package-manager ; printf "%s\n" "${PACKAGE_MANAGER}" )
+	
+	if [ -f ${ROOT}/etc/env.d/50package-manager ] ; then
+		pm=$( source "${ROOT}"/etc/env.d/50package-manager ; echo "${PACKAGE_MANAGER}" )
 	fi
 
-	if [ "${pm}" != paludis ] ; then
-		elog "Set paludis as primary package manager:"
+	if [ ${pm} != paludis ] ; then
+		elog "To use paludis as primary package manager execute the following:"
 		elog "    eselect package-manager set paludis"
 	fi
 
