@@ -2,8 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
-    <email>pross@pross.org.uk</email>
-    <name>Simon Prosser</name>
+    <email>uniminin@zoho.com</email>
+    <name>uniminin</name>
   </maintainer>
   <use>
     <flag name="experimental">Apply experimental patches; for more information, see "https://wiki.gentoo.org/wiki/Project:Kernel/Experimental".</flag>
