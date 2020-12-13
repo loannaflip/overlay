@@ -32,7 +32,7 @@ UNIPATCH_LIST="
 	${FILESDIR}/0002-Bluetooth-Fix-LL-PRivacy-BLE-device-fails-to-connect.patch
 	${FILESDIR}/0003-Bluetooth-Fix-attempting-to-set-RPA-timeout-when-uns.patch
 	${FILESDIR}/0004-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
-	${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v9.1+_kernel_v5.8+.patch
+	${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v10.1+_kernel_v5.8+.patch
 	${FILESDIR}/0006-init-Kconfig-enable-O3-for-all-arches.patch
 	${FILESDIR}/4567_distro-Gentoo-Kconfig.patch
 	${DISTDIR}/patch-${K_BRANCH_ID}-${CK_EXTRAVERSION}.xz
