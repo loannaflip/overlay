@@ -14,6 +14,8 @@ SLOT="0"
 
 DOCS="CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md TESTS.md LICENSE README.md"
 
+S="${WORKDIR}"
+
 src_compile() {
 	cd "${WORKDIR}"
 	make
