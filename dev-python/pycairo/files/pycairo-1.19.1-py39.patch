@@ -1,6 +1,6 @@
 From 3ecf0a4060d6de3b92a77a393ece663455cf6add Mon Sep 17 00:00:00 2001
 From: Christoph Reiter <reiter.christoph@gmail.com>
-Date: Sun, 10 May 2020 11:22:40 +0200
+Date: Sun, 10 May 2021 11:22:40 +0200
 Subject: [PATCH] tests: Fix syntax issue with Python 3.9
 
 https://bugs.python.org/issue40246

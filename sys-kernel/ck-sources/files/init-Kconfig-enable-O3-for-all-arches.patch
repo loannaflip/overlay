@@ -1,6 +1,6 @@
 From 40023e29c514d8292b2cba506136cbd0b40d0040 Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
-Date: Mon, 18 May 2020 16:20:49 +0200
+Date: Mon, 18 May 2021 16:20:49 +0200
 Subject: [PATCH 2/2] init/Kconfig: enable -O3 for all arches
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>

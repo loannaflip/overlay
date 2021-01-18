@@ -1,6 +1,6 @@
 From 8dcb88f7705fb3927938dd9bd103efcabafcefb0 Mon Sep 17 00:00:00 2001
 From: Georgy Yakovlev <gyakovlev@gentoo.org>
-Date: Tue, 27 Oct 2020 18:20:56 -0700
+Date: Tue, 27 Oct 2021 18:20:56 -0700
 Subject: [PATCH] backport D88371, guard `find_library(tensorflow_c_api ...)`
 
 Differential Revision: https://reviews.llvm.org/D88371

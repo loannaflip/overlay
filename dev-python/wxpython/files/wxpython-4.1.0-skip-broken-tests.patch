@@ -1,6 +1,6 @@
 diff -ur wxPython-4.1.0.orig/unittests/test_frame.py wxPython-4.1.0/unittests/test_frame.py
---- wxPython-4.1.0.orig/unittests/test_frame.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_frame.py	2020-10-05 01:19:02.061233731 +0200
+--- wxPython-4.1.0.orig/unittests/test_frame.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_frame.py	2021-10-05 01:19:02.061233731 +0200
 @@ -50,7 +50,7 @@
          f.Close()
  
@@ -11,8 +11,8 @@ diff -ur wxPython-4.1.0.orig/unittests/test_frame.py wxPython-4.1.0/unittests/te
          f.Show()
          f.Maximize()
 diff -ur wxPython-4.1.0.orig/unittests/test_graphics.py wxPython-4.1.0/unittests/test_graphics.py
---- wxPython-4.1.0.orig/unittests/test_graphics.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_graphics.py	2020-10-05 01:19:20.648549708 +0200
+--- wxPython-4.1.0.orig/unittests/test_graphics.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_graphics.py	2021-10-05 01:19:20.648549708 +0200
 @@ -23,7 +23,7 @@
          gc = wx.GraphicsContext.Create(img)
          self.assertTrue(gc.IsOk())
@@ -23,8 +23,8 @@ diff -ur wxPython-4.1.0.orig/unittests/test_graphics.py wxPython-4.1.0/unittests
              def __init__(self, parent):
                  super(MyPanel, self).__init__(parent)
 diff -ur wxPython-4.1.0.orig/unittests/test_lib_pubsub_provider.py wxPython-4.1.0/unittests/test_lib_pubsub_provider.py
---- wxPython-4.1.0.orig/unittests/test_lib_pubsub_provider.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_lib_pubsub_provider.py	2020-10-05 01:20:09.264760587 +0200
+--- wxPython-4.1.0.orig/unittests/test_lib_pubsub_provider.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_lib_pubsub_provider.py	2021-10-05 01:20:09.264760587 +0200
 @@ -49,7 +49,7 @@
  
  class lib_pubsub_Except(wtc.PubsubTestCase):
@@ -35,8 +35,8 @@ diff -ur wxPython-4.1.0.orig/unittests/test_lib_pubsub_provider.py wxPython-4.1.
          self.pub.addTopicDefnProvider(my_topics, self.pub.TOPIC_TREE_FROM_CLASS)
  
 diff -ur wxPython-4.1.0.orig/unittests/test_lib_pubsub_topicmgr.py wxPython-4.1.0/unittests/test_lib_pubsub_topicmgr.py
---- wxPython-4.1.0.orig/unittests/test_lib_pubsub_topicmgr.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_lib_pubsub_topicmgr.py	2020-10-05 01:20:27.754080157 +0200
+--- wxPython-4.1.0.orig/unittests/test_lib_pubsub_topicmgr.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_lib_pubsub_topicmgr.py	2021-10-05 01:20:27.754080157 +0200
 @@ -215,7 +215,7 @@
          assert 1 == topicMgr.getNumDefnProviders()
          topicMgr.clearDefnProviders()
@@ -47,8 +47,8 @@ diff -ur wxPython-4.1.0.orig/unittests/test_lib_pubsub_topicmgr.py wxPython-4.1.
          # Test the use of definition providers for topics. We create
          # two so we can check that more than one can work together.
 diff -ur wxPython-4.1.0.orig/unittests/test_sizer.py wxPython-4.1.0/unittests/test_sizer.py
---- wxPython-4.1.0.orig/unittests/test_sizer.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_sizer.py	2020-10-05 01:20:47.379357938 +0200
+--- wxPython-4.1.0.orig/unittests/test_sizer.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_sizer.py	2021-10-05 01:20:47.379357938 +0200
 @@ -71,7 +71,7 @@
          self.assertTrue(items[1].IsSpacer())
          self.assertTrue(items[2].Border == 5)
@@ -59,8 +59,8 @@ diff -ur wxPython-4.1.0.orig/unittests/test_sizer.py wxPython-4.1.0/unittests/te
          widgetlist = [wx.Panel(self.frame) for _ in range(5)]
          for w in widgetlist:
 diff -ur wxPython-4.1.0.orig/unittests/test_utils.py wxPython-4.1.0/unittests/test_utils.py
---- wxPython-4.1.0.orig/unittests/test_utils.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_utils.py	2020-10-05 01:21:13.152409468 +0200
+--- wxPython-4.1.0.orig/unittests/test_utils.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_utils.py	2021-10-05 01:21:13.152409468 +0200
 @@ -34,7 +34,7 @@
          with wx.BusyCursor():
              self.myYield()
@@ -71,8 +71,8 @@ diff -ur wxPython-4.1.0.orig/unittests/test_utils.py wxPython-4.1.0/unittests/te
          wx.GetPowerType()
          wx.GetKeyState(wx.WXK_F1)
 diff -ur wxPython-4.1.0.orig/unittests/test_windowid.py wxPython-4.1.0/unittests/test_windowid.py
---- wxPython-4.1.0.orig/unittests/test_windowid.py	2020-04-24 00:14:41.000000000 +0200
-+++ wxPython-4.1.0/unittests/test_windowid.py	2020-10-05 01:21:28.807833331 +0200
+--- wxPython-4.1.0.orig/unittests/test_windowid.py	2021-04-24 00:14:41.000000000 +0200
++++ wxPython-4.1.0/unittests/test_windowid.py	2021-10-05 01:21:28.807833331 +0200
 @@ -28,7 +28,7 @@
              assert isinstance(ref, wx.WindowIDRef)
  
