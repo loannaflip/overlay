@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -28,7 +28,8 @@ HOMEPAGE="https://www.rust-lang.org/"
 
 SRC_URI="
 	https://static.rust-lang.org/dist/${SRC}
-	!system-bootstrap? ( $(rust_all_arch_uris rust-${RUST_STAGE0_VERSION}) )"
+	!system-bootstrap? ( $(rust_all_arch_uris rust-${RUST_STAGE0_VERSION}) )
+"
 
 # keep in sync with llvm ebuild of the same version as bundled one.
 ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430
@@ -53,7 +54,8 @@ LLVM_DEPEND="
 		sys-devel/llvm:11[${LLVM_TARGET_USEDEPS// /,}]
 	)
 	<sys-devel/llvm-12:=
-	wasm? ( sys-devel/lld )"
+	wasm? ( sys-devel/lld )
+"
 LLVM_MAX_SLOT=11
 
 # to bootstrap we need at least exactly previous version, or same.
@@ -67,7 +69,8 @@ BOOTSTRAP_DEPEND="||
 		=dev-lang/rust-bin-$(ver_cut 1).$(($(ver_cut 2) - 1))*
 		=dev-lang/rust-$(ver_cut 1).$(ver_cut 2)*
 		=dev-lang/rust-bin-$(ver_cut 1).$(ver_cut 2)*
-	)"
+	)
+"
 
 BDEPEND="${PYTHON_DEPS}
 	app-eselect/eselect-rust
@@ -79,7 +82,8 @@ BDEPEND="${PYTHON_DEPS}
 	!system-llvm? (
 		dev-util/cmake
 		dev-util/ninja
-	)"
+	)
+"
 
 DEPEND="
 	>=app-arch/xz-utils-5.2
@@ -90,20 +94,23 @@ DEPEND="
 	elibc_musl? ( sys-libs/libunwind:= )
 	system-llvm? (
 		${LLVM_DEPEND}
-	)"
+	)
+"
 
 # we need to block older versions due to layout changes.
 RDEPEND="${DEPEND}
 	app-eselect/eselect-rust
 	!<dev-lang/rust-1.47.0-r1
-	!<dev-lang/rust-bin-1.47.0-r1"
+	!<dev-lang/rust-bin-1.47.0-r1
+"
 
 REQUIRED_USE="|| ( ${ALL_LLVM_TARGETS[*]} )
 	miri? ( nightly )
 	parallel-compiler? ( nightly )
 	test? ( ${ALL_LLVM_TARGETS[*]} )
 	wasm? ( llvm_targets_WebAssembly )
-	x86? ( cpu_flags_x86_sse2 )"
+	x86? ( cpu_flags_x86_sse2 )
+"
 
 # we don't use cmake.eclass, but can get a warnings
 CMAKE_WARN_UNUSED_CLI=no
@@ -112,19 +119,23 @@ QA_FLAGS_IGNORED="
 	usr/lib/${PN}/${PV}/bin/.*
 	usr/lib/${PN}/${PV}/lib/lib.*.so
 	usr/lib/${PN}/${PV}/lib/rustlib/.*/bin/.*
-	usr/lib/${PN}/${PV}/lib/rustlib/.*/lib/lib.*.so"
+	usr/lib/${PN}/${PV}/lib/rustlib/.*/lib/lib.*.so
+"
 
 QA_SONAME="
 	usr/lib/${PN}/${PV}/lib/lib.*.so.*
-	usr/lib/${PN}/${PV}/lib/rustlib/.*/lib/lib.*.so"
+	usr/lib/${PN}/${PV}/lib/rustlib/.*/lib/lib.*.so
+"
 
 # causes double bootstrap
 RESTRICT="test"
 
 PATCHES=(
+	"${FILESDIR}"/1.47.0-libressl.patch
 	"${FILESDIR}"/1.46.0-don-t-create-prefix-at-time-of-check.patch
 	"${FILESDIR}"/1.47.0-ignore-broken-and-non-applicable-tests.patch
 	"${FILESDIR}"/1.47.0-llvm-tensorflow-fix.patch
+	"${FILESDIR}"/1.49.0-gentoo-musl-target-specs.patch
 )
 
 S="${WORKDIR}/${MY_P}-src"
