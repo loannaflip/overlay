@@ -30,9 +30,9 @@ SRC_URI="
 "
 
 UNIPATCH_LIST="
-        ${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v10.1+_kernel_v5.8+.patch
-        ${FILESDIR}/init-Kconfig-enable-O3-for-all-arches.patch
-        ${DISTDIR}/patch-${K_BRANCH_ID}-${CK_EXTRAVERSION}.xz
+	${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v10.1+_kernel_v5.8+.patch
+	${FILESDIR}/init-Kconfig-enable-O3-for-all-arches.patch
+	${DISTDIR}/patch-${K_BRANCH_ID}-${CK_EXTRAVERSION}.xz
 "
 
 UNIPATCH_STRICTORDER="yes"
