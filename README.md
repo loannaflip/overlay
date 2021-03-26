@@ -35,7 +35,7 @@ sync-type = git
 sync-uri = https://github.com/Uniminin/uniminin-overlay.git
 auto-sync = Yes
 ```
-Then run `<superuser> emaint -r uniminin-overlay sync`, Portage should now find and update the repository.
+Then run `<superuser> emerge sync uniminin-overlay`. Portage should now find and update the repository.
 
 ### Layman
 You can also use the Layman tool to add and sync the repository. Execute the following:-
