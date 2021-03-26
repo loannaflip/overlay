@@ -26,13 +26,14 @@ CK_URI="http://ck.kolivas.org/patches/5.0/${K_BRANCH_ID}/${K_BRANCH_ID}-${CK_EXT
 SRC_URI="
 	${KERNEL_URI}
 	${ARCH_URI}
-	${CK_URI}"
+	${CK_URI}
+"
 
 UNIPATCH_LIST="
         ${FILESDIR}/enable_additional_cpu_optimizations_for_gcc_v10.1+_kernel_v5.8+.patch
         ${FILESDIR}/init-Kconfig-enable-O3-for-all-arches.patch
         ${DISTDIR}/patch-${K_BRANCH_ID}-${CK_EXTRAVERSION}.xz
-        ${FILESDIR}/${CK_EXTRAVERSION}-revert-version.patch"
+"
 
 UNIPATCH_STRICTORDER="yes"
 
