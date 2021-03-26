@@ -21,53 +21,35 @@ DEPEND="
 	>=dev-qt/qtcore-5.2.0:5
 	>=dev-qt/qtdeclarative-5.2.0:5
 	>=dev-qt/qtquickcontrols-5.2.0:5
-	>=dev-qt/qtsvg-5.2.0:5"
+	>=dev-qt/qtsvg-5.2.0:5
+"
 
 RDEPEND="${DEPEND}"
 
 src_unpack() {
-
 	git-r3_src_unpack
 	default
-
 }
 
 src_prepare() {
-
 	mv "${WORKDIR}/qtil-${QTIL_VERSION}" "${S}/lib/qtil" || die
 	default
-
 }
 
 src_configure() {
-
 	eqmake5 PREFIX="/usr"
-
 }
 
 src_install() {
-
 	INSTALL_ROOT="${D}" default
-
 }
 
 pkg_postinst() {
-
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
-	
-	elog ""
-	elog "You can install packages from any page from"
-	elog "https://www.opendesktop.org or related ones."
-	elog "Just click on \"Install\", and then open the ocs://"
-	elog "url provided by every package."
-	elog ""
-
 }
 
 pkg_postrm() {
-
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
-
 }
