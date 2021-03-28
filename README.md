@@ -7,7 +7,7 @@ There are two main methods for making use of this repository, discussed in the s
 ### Local Repository
 For the [local repository](https://wiki.gentoo.org/wiki/Handbook:Parts/Portage/CustomTree#Defining_a_custom_repository) method, create a `/etc/portage/repos.conf/loannaflip` file and add the following:-
 ```
-[uniminin-overlay]
+[loannaflip]
 priority = 50
 location = /var/db/repos/loannaflip
 sync-type = git
