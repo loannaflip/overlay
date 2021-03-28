@@ -1,4 +1,4 @@
-# Exheres
+# Overlay
 loannaflip's portage overlay for Gentoo Linux providing ebuilds for various packages
 
 ## Using This Repository
